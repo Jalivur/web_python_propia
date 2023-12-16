@@ -18,6 +18,13 @@ def index() -> rx.Component:
         rx.color_mode_button(rx.color_mode_icon(), float="right"),
         rx.vstack(
             rx.heading("Hola Jalivur!", font_size="5em"),
+        rx.button_group(
+            rx.button("Ghost Button", variant="ghost"),
+            rx.button("Outline Button", variant="outline"),
+            rx.button("Solid Button", variant="solid"),
+            rx.button("Link Button", variant="link"),
+            rx.button("Unstyled Button", variant="unstyled"),
+        ),
         width="100%",
             spacing="1.5em",
             font_size="2em",
