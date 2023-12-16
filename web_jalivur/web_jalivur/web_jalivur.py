@@ -2,6 +2,7 @@
 from rxconfig import config
 
 import reflex as rx
+from web_jalivur.components.nav_bar import navbar
 
 docs_url = "https://reflex.dev/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
@@ -15,20 +16,12 @@ class State(rx.State):
 
 def index() -> rx.Component:
     return rx.hstack(
-        rx.text(
-            "Jalivur",
-            height = "50px",
-            color = "white"
-
-        
-        ),
-        position = "sticky",
-        bg="red",
-        padding_x = "10px",
-        padding_y = "10px",
-        z_index ="999"
+        navbar(),
+        navbar(),
+        navbar(),
+        navbar(),
+        navbar()
     )
-
 # Add state and page to the app.
 app = rx.App()
 app.add_page(index)
