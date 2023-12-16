@@ -14,24 +14,20 @@ class State(rx.State):
 
 
 def index() -> rx.Component:
-    return rx.fragment(
-        rx.color_mode_button(rx.color_mode_icon(), float="right"),
-        rx.vstack(
-            rx.heading("Hola Jalivur!", font_size="5em"),
-        rx.button_group(
-            rx.button("Ghost Button", variant="ghost", background_color="red"),
-            rx.button("Outline Button", variant="outline"),
-            rx.button("Solid Button", variant="solid"),
-            rx.button("Link Button", variant="link"),
-            rx.button("Unstyled Button", variant="unstyled"),
-        ),
-        width="100%",
-            spacing="1.5em",
-            font_size="2em",
-            padding_top="10%",
-        ),
-    )
+    return rx.hstack(
+        rx.text(
+            "Jalivur",
+            height = "50px",
+            color = "white"
 
+        
+        ),
+        position = "sticky",
+        bg="red",
+        padding_x = "10px",
+        padding_y = "10px",
+        z_index ="999"
+    )
 
 # Add state and page to the app.
 app = rx.App()
