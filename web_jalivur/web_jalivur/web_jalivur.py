@@ -19,7 +19,7 @@ def index() -> rx.Component:
         rx.vstack(
             rx.heading("Hola Jalivur!", font_size="5em"),
         rx.button_group(
-            rx.button("Ghost Button", variant="ghost"),
+            rx.button("Ghost Button", variant="ghost", background_color="red"),
             rx.button("Outline Button", variant="outline"),
             rx.button("Solid Button", variant="solid"),
             rx.button("Link Button", variant="link"),
