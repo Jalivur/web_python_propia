@@ -15,6 +15,5 @@ def navbar() -> rx.Component:
         bg="#ffab53",
         padding_x = "10px",
         padding_y = "10px",
-        z_index ="999",
-        border_radius="25%"
+        z_index ="999"
     )
