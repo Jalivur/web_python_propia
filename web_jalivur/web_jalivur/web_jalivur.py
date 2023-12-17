@@ -4,7 +4,8 @@ from rxconfig import config
 import reflex as rx
 from web_jalivur.components.nav_bar import navbar
 from web_jalivur.views.header.header import header
-
+from web_jalivur.views.links.links import links
+from web_jalivur.components.footer import footer
 docs_url = "https://reflex.dev/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
 
@@ -18,7 +19,9 @@ class State(rx.State):
 def index() -> rx.Component:
     return rx.vstack(
         navbar(),
-        header()
+        header(),
+        links(),
+        footer()
     )
 
 # Add state and page to the app.
