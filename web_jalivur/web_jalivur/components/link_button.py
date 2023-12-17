@@ -1,16 +1,19 @@
 import reflex as rx
 
 
-def link_button(text:str, url:str ) -> rx.Component:
+def link_button(text:str, url:str, icon1:str, icon2:str) -> rx.Component:
     return rx.link(
         rx.button(
             rx.hstack(
                 rx.icon(
-                    tag="arrow_forward",
+                    tag=icon1,
                 ),
                 rx.vstack(
                     rx.text(text),
                     rx.text(text)
+                ),
+                rx.icon(
+                    tag=icon2,
                 )
             )
         ),
