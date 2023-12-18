@@ -3,8 +3,8 @@ from rxconfig import config
 
 import reflex as rx
 from web_jalivur.components.nav_bar import navbar
-from web_jalivur.views.header.header import header
-from web_jalivur.views.links.links import links
+#from web_jalivur.views.header.header import header
+#from web_jalivur.views.links.links import links
 from web_jalivur.components.footer import footer
 import web_jalivur.styles.styles as styles
 from web_jalivur.components.form import dynamic_form
@@ -21,18 +21,7 @@ class State(rx.State):
 def index() -> rx.Component:
     return rx.box(
         navbar(),
-        rx.center(
-            rx.vstack(
-            header(),
-            rx.divider(orientation="horizontal", border_color="blue"),
-            links(),
-            max_width=styles.MAX_WIDTH,
-            width="100%",
-            margin_y=styles.Spacer.BIG.value
-            )
-        ),
         rx.card(
-        
             rx.box(
                 rx.center(rx.text("Tarjeta formulario")),
                 dynamic_form("Generador de Contraseña"),
