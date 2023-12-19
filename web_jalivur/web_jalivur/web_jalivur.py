@@ -7,7 +7,7 @@ from web_jalivur.components.nav_bar import navbar
 #from web_jalivur.views.links.links import links
 from web_jalivur.components.footer import footer
 import web_jalivur.styles.styles as styles
-from web_jalivur.components.form import dynamic_form
+from web_jalivur.components.form import form_entry
 docs_url = "https://reflex.dev/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
 
@@ -24,7 +24,7 @@ def index() -> rx.Component:
         rx.card(
             rx.box(
                 rx.center(rx.text("Tarjeta formulario")),
-                dynamic_form("Generador de Contraseña"),
+                form_entry("Generador de Contraseña"),
             ),
             align="center",
         ),
