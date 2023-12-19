@@ -7,7 +7,7 @@ from web_jalivur.components.nav_bar import navbar
 #from web_jalivur.views.links.links import links
 from web_jalivur.components.footer import footer
 import web_jalivur.styles.styles as styles
-from web_jalivur.components.form import form_entry
+from web_jalivur.components.forms import form_entry
 docs_url = "https://reflex.dev/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
 
