@@ -134,7 +134,7 @@ def form_entry(title:str):
                 ),
                 rx.button("Submit", type_="submit"),
             ),
-            on_submit=FormState_entru.handle_submit,
+            on_submit=FormState_entry.handle_submit,
             reset_on_submit=True,
         ),
         rx.divider(),
