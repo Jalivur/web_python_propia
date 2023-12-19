@@ -32,36 +32,7 @@ class DynamicFormState(rx.State):
 
     def handle_submit(self, form_data: dict):
         self.form_data = form_data
-        conn = psycopg2.connect(
-                                host="mydatabase-esteya92-1cl.a.aivencloud.com",
-                                database="defaultdb",
-                                user="avnadmin",
-                                password="AVNS_xOf_0MRXzrrUYS8IaDf",
-                                port="15904"
-                                )
-        cursor = conn.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS contrasenas (id SERIAL PRIMARY KEY, Sitio TEXT, Url_sitio TEXT, Usuario TEXT, Contraseña TEXT)")
-        conn.commit()
-        cursor.close()
-
-        cursor = conn.cursor()
-        Sitio= form_data.get("Sitio")
-        Url_sitio = form_data.get("Url_sitio")
-        Usuario = form_data.get("Usuario")
-        Contraseña = form_data.get("Contraseña")
-        sql= (f"INSERT INTO contrasenas (Sitio, Url_sitio, Usuario, Contraseña) VALUES ('{Sitio}', '{Url_sitio}', '{Usuario}', '{Contraseña}')")
-        cursor.execute(sql)
-        conn.commit()
-        cursor.close()
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM contrasenas")
-        rows = cursor.fetchall()
-
-        for row in rows:
-            print(row)
-
-        cursor.close()
-
+        
 
 def dynamic_form(title: str):
     return rx.vstack(
@@ -99,17 +70,46 @@ def dynamic_form(title: str):
         rx.text(DynamicFormState.form_data.to_string()),
     )
 
-class FormState(rx.State):
+class FormState_entry(rx.State):
     form_data: dict = {}
 
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
+        conn = psycopg2.connect( 
+        host="mydatabase-esteya92-1cl.a.aivencloud.com",
+        database="defaultdb",
+        user="avnadmin",
+        password="AVNS_xOf_0MRXzrrUYS8IaDf",
+        port="15904"
+        )
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS contrasenas (id SERIAL PRIMARY KEY, Sitio TEXT, Url_sitio TEXT, Usuario TEXT, Contraseña TEXT)")
+        conn.commit()
+        cursor.close()
+
+        cursor = conn.cursor()
+        Sitio= form_data.get("Sitio")
+        Url_sitio = form_data.get("Url_sitio")
+        Usuario = form_data.get("Usuario")
+        Contraseña = form_data.get("Contraseña")
+        sql= (f"INSERT INTO contrasenas (Sitio, Url_sitio, Usuario, Contraseña) VALUES ('{Sitio}', '{Url_sitio}', '{Usuario}', '{Contraseña}')")
+        cursor.execute(sql)
+        conn.commit()
+        cursor.close()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM contrasenas")
+        rows = cursor.fetchall()
+
+        for row in rows:
+            print(row)
+
+        cursor.close()
 
 
 def form_entry(title:str):
     return rx.vstack(
-        rx.text(title, as_="strong", font_size="2em"
+        rx.text(title, as_="strong", font_size="2em"),
         rx.form(
             rx.vstack(
                 rx.input(
@@ -134,10 +134,10 @@ def form_entry(title:str):
                 ),
                 rx.button("Submit", type_="submit"),
             ),
-            on_submit=FormState.handle_submit,
+            on_submit=FormState_entru.handle_submit,
             reset_on_submit=True,
         ),
         rx.divider(),
         rx.heading("Results"),
-        rx.text(FormState.form_data.to_string()),
+        rx.text(FormState_entry.form_data.to_string()),
     )
