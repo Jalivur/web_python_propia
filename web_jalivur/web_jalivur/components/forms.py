@@ -1,76 +1,6 @@
 import reflex as rx
 import psycopg2
-
-
-
-class DynamicFormState(rx.State):
-    form_data: dict = {}
-    form_fields: list[str] = [
-        "Sitio",
-        "Url_sitio",
-        "Usuario",
-        "Contraseña"
-    ]
-
-    @rx.cached_var
-    def form_field_placeholders(self) -> list[str]:
-        return [
-            " ".join(
-                w.capitalize() for w in field.split("_")
-            )
-            for field in self.form_fields
-        ]
-
-    def add_field(self, form_data: dict):
-        new_field = form_data.get("new_field")
-        if not new_field:
-            return
-        field_name = (
-            new_field.strip().lower().replace(" ", "_")
-        )
-        self.form_fields.append(field_name)
-
-    def handle_submit(self, form_data: dict):
-        self.form_data = form_data
-        
-
-def dynamic_form(title: str):
-    return rx.vstack(
-        rx.text(title, as_="strong", font_size="4em"),
-        rx.form(
-            rx.vstack(
-                rx.foreach(
-                    DynamicFormState.form_fields,
-                    lambda field, idx: rx.input(
-                        placeholder=DynamicFormState.form_field_placeholders[
-                            idx
-                        ],
-                        name=field,
-                        is_required=True
-                    ),
-                ),
-                rx.button("Submit", type_="submit"),
-            ),
-            on_submit=DynamicFormState.handle_submit,
-            reset_on_submit=True,
-        ),
-        rx.form(
-            rx.hstack(
-                rx.input(
-                    placeholder="New Field",
-                    name="new_field",
-                ),
-                rx.button("+", type_="submit"),
-            ),
-            on_submit=DynamicFormState.add_field,
-            reset_on_submit=True,
-        ),
-        rx.divider(),
-        rx.heading("Resultados"),
-        rx.text(DynamicFormState.form_data.to_string()),
-    )
-
-class FormState_entry(rx.State):
+class FormState(rx.State):
     form_data: dict = {}
 
     def handle_submit(self, form_data: dict):
@@ -90,7 +20,7 @@ class FormState_entry(rx.State):
 
         cursor = conn.cursor()
         Sitio= form_data.get("Sitio")
-        Url_sitio = form_data.get("Url_sitio")
+        Url_sitio = form_data.get("Url")
         Usuario = form_data.get("Usuario")
         Contraseña = form_data.get("Contraseña")
         sql= (f"INSERT INTO contrasenas (Sitio, Url_sitio, Usuario, Contraseña) VALUES ('{Sitio}', '{Url_sitio}', '{Usuario}', '{Contraseña}')")
@@ -107,7 +37,7 @@ class FormState_entry(rx.State):
         cursor.close()
 
 
-def form_entry(title:str):
+def form(title:str):
     return rx.vstack(
         rx.text(title, as_="strong", font_size="2em"),
         rx.form(
@@ -115,33 +45,31 @@ def form_entry(title:str):
                 rx.input(
                     placeholder="Sitio",
                     name="Sitio",
-                    id_required=True
+                    is_required = True,
                 ),
                 rx.input(
                     placeholder="Url Sitio",
-                    url="Url_Sitio",
-                    id_required=True
+                    name="Url",
+                    is_required = True,
                 ),
                 rx.input(
                     placeholder="Usuario",
-                    usuario="Usuario",
-                    id_required=True
+                    name="Usuario",
+                    is_required = True,
                 ),
                 rx.input(
                     placeholder="Contraseña",
-                    contrasena="Contraseña",
-                    id_required=True
-                ),
-                """rx.hstack(
-                    rx.checkbox("Checked", name="check"),
-                    rx.switch("Switched", name="switch"),"""
+                    name="Contraseña",
+                    is_required = True,
                 ),
                 rx.button("Submit", type_="submit"),
+
             ),
-            on_submit=FormState_entry.handle_submit,
+
+            on_submit=FormState.handle_submit,
             reset_on_submit=True,
         ),
-        rx.divider(),
-        rx.heading("Results"),
-        rx.text(FormState_entry.form_data.to_string()),
-    )
+            rx.divider(),
+            rx.heading("Results"),
+            rx.text(FormState.form_data.to_string()),
+        )
