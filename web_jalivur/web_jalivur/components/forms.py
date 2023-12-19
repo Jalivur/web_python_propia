@@ -1,18 +1,18 @@
 import reflex as rx
 import psycopg2
+from dotenv import load_dotenv
+import os
+from rxconfig import config
+db_url=config.db_url
+load_dotenv(dotenv_path="/Users/albertoestellaquel/Desktop/PYTHON/web_python_propia/web_jalivur/.env")
 class FormState(rx.State):
     form_data: dict = {}
 
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
-        conn = psycopg2.connect( 
-        host="mydatabase-esteya92-1cl.a.aivencloud.com",
-        database="defaultdb",
-        user="avnadmin",
-        password="AVNS_xOf_0MRXzrrUYS8IaDf",
-        port="15904"
-        )
+        conn = psycopg2.connect(db_url)
+
         cursor = conn.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS contrasenas (id SERIAL PRIMARY KEY, Sitio TEXT, Url_sitio TEXT, Usuario TEXT, Contraseña TEXT)")
         conn.commit()
