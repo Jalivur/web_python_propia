@@ -115,18 +115,22 @@ def form_entry(title:str):
                 rx.input(
                     placeholder="Sitio",
                     name="Sitio",
+                    id_required=True
                 ),
                 rx.input(
                     placeholder="Url Sitio",
                     url="Url_Sitio",
+                    id_required=True
                 ),
                 rx.input(
                     placeholder="Usuario",
                     usuario="Usuario",
+                    id_required=True
                 ),
                 rx.input(
                     placeholder="Contraseña",
                     contrasena="Contraseña",
+                    id_required=True
                 ),
                 """rx.hstack(
                     rx.checkbox("Checked", name="check"),
