@@ -107,8 +107,9 @@ class FormState(rx.State):
         self.form_data = form_data
 
 
-def form_entry():
+def form_entry(title:str):
     return rx.vstack(
+        rx.text(title, as_="strong", font_size="2em"
         rx.form(
             rx.vstack(
                 rx.input(
