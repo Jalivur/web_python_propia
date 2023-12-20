@@ -1,13 +1,11 @@
 import reflex as rx
 import psycopg2
-from dotenv import load_dotenv
-import os
+
 from rxconfig import config
 db_url=config.db_url
-load_dotenv(dotenv_path="/Users/albertoestellaquel/Desktop/PYTHON/web_python_propia/web_jalivur/.env")
+
 class FormState(rx.State):
     form_data: dict = {}
-
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
@@ -30,11 +28,18 @@ class FormState(rx.State):
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM contrasenas")
         rows = cursor.fetchall()
-
-        for row in rows:
-            print(row)
-
+        data_dict={}
+        for index, row in enumerate(rows):
+            data_dict[index] = {
+            "id": row[0],
+            "Sitio": row[1],
+            "Url_sitio": row[2],
+            "Usuario": row[3],
+            "Contraseña": row[4]
+            }
         cursor.close()
+        print(data_dict)
+        
 
 
 def form(title:str):
