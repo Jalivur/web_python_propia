@@ -11,12 +11,12 @@ class contrasenas(rx.Model, table=True):
     contraseña: str
 
 class TableState(rx.State):
-    columns: list[str] = [
+    columns: list[dict] = [
         "Id",
         "Sitio",
         "Url Sitio",
         "Usuario",
-        "Contraseña"
+        "Contraseña",
         ]
     contrasenas: dict = []
 
@@ -39,16 +39,12 @@ class TableState(rx.State):
 def tabla():
     state = TableState()
     load_data=state.load_data()
-    print(type(state.load_data()))
-
     list_values=[list(dict_int.values()) for dict_int in load_data.values()]
-    print(list_values)
-
-
     return rx.data_table(
         columns=TableState.columns,
         data=list_values,
         pagination=True,
         search=True,
-        sort=True,
+        sort=False,
+        resizable=True,
     )

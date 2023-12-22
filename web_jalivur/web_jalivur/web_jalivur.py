@@ -57,10 +57,10 @@ class State(rx.State):
             return False
 
     @rx.cached_var
-    def protected_content(self) -> str:
+    def Welcome_content(self) -> str:
         if self.token_is_valid:
-            return f"This content can only be viewed by a logged in User. Nice to see you {self.tokeninfo['name']}"
-        return "Not logged in."
+            return f"Biembenido, Me alegro de Verte {self.tokeninfo['name']}"
+        return "NO ESTAS AUTORIZADO!!!!! LARGO DE AQUI!!!!"
 
 
 def user_info(tokeninfo: dict) -> rx.Component:
@@ -102,34 +102,48 @@ def require_google_login(page) -> rx.Component:
 
 def index() -> rx.Component:
     return rx.vstack(
-        rx.heading("Google OAuth", size="lg"),
-        rx.link("Protected Page", href="/protected"),
+        rx.heading("Bienvenido la Web de Jalivur", size="lg"),
+        rx.link("Welcome Page", href="/Welcome_page"),
     )
-@rx.page(route="/protected")
+@rx.page(route="/Welcome_page")
 @require_google_login
-def protected() -> rx.Component:
+def Welcome() -> rx.Component:
     return rx.vstack(
         user_info(State.tokeninfo),
-        rx.text(State.protected_content),
-        rx.link("Home", href="/Home"),
+        rx.text(State.Welcome_content),
+        rx.link("Formulario Inserción", href="/Formulario"),
+        rx.link("Tabla", href="/Tabla"),
+        rx.link("Volver", href="/")
     )
-@rx.page(route="/Home")
+@rx.page(route="/Formulario")
 @require_google_login
-def protected() -> rx.Component:
-    return rx.vstack(
-        user_info(State.tokeninfo),
-        rx.text(State.protected_content),
-        rx.box(
-        navbar(),
-        rx.card(
-            rx.box(
-                rx.center(rx.text("Tarjeta formulario")),
-                form("Generador de Contraseña"),
+def form_insert() -> rx.Component:
+    return rx.box(
+                navbar(),
+                rx.vstack(
+                rx.link("Volver", href="/Welcome_page"),
+                rx.box(
+
+
+                rx.card(
+                    rx.box(
+                        form("Insercion de Contraseña"),
+                    ),
+                    align="center",
+                ),
+                footer()
+                ),
             ),
-            align="center",
-        ),
-        tabla(),
-        footer()
+            width="100%",
+        )
+@rx.page(route="/Tabla")
+@require_google_login
+def data_table() -> rx.Component:
+    return rx.vstack(
+        rx.link("Volver", href="/Welcome_page"),
+        rx.box(
+            tabla(),
+            width="95%",
         )
     )
 # Add state and page to the app.

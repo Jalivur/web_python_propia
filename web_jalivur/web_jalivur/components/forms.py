@@ -25,22 +25,6 @@ class FormState(rx.State):
         cursor.execute(sql)
         conn.commit()
         cursor.close()
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM contrasenas")
-        rows = cursor.fetchall()
-        data_dict={}
-        for index, row in enumerate(rows):
-            data_dict[index] = {
-            "id": row[0],
-            "Sitio": row[1],
-            "Url_sitio": row[2],
-            "Usuario": row[3],
-            "Contraseña": row[4]
-            }
-        cursor.close()
-        print(data_dict)
-        
-
 
 def form(title:str):
     return rx.vstack(
@@ -75,6 +59,6 @@ def form(title:str):
             reset_on_submit=True,
         ),
             rx.divider(),
-            rx.heading("Results"),
+            rx.heading("Resultado Ultima Inserción"),
             rx.text(FormState.form_data.to_string()),
         )
