@@ -11,8 +11,14 @@ class contrasenas(rx.Model, table=True):
     contraseña: str
 
 class TableState(rx.State):
-
-    contrasenas: list[dict] = []
+    columns: list[str] = [
+        "Id",
+        "Sitio",
+        "Url Sitio",
+        "Usuario",
+        "Contraseña"
+        ]
+    contrasenas: dict = []
 
     def load_data(self):
         conn = psycopg2.connect(db_url)
@@ -32,62 +38,17 @@ class TableState(rx.State):
         return contrasenas
 def tabla():
     state = TableState()
-    state.load_data()
-    print(state.load_data())
-    list_values=[list(dict_int.values()) for dict_int in state.load_data.values()]
-    print(list_values)
-    columns = [
+    load_data=state.load_data()
+    print(type(state.load_data()))
 
-        {"title": "id", "type":"int"},
-        {"title": "Sitio", "type":"str"},
-        {"title": "Url_Sitio", "type":"str"},
-        {"title": "Usuario", "type":"str"},
-        {"title": "Contraseña", "type":"str"},
-    ]
+    list_values=[list(dict_int.values()) for dict_int in load_data.values()]
+    print(list_values)
+
+
     return rx.data_table(
+        columns=TableState.columns,
         data=list_values,
-        columns=columns,
         pagination=True,
         search=True,
         sort=True,
     )
-"""state= TableState()
-state.load_data()
-dict=vars(state)
-import csv
-
-# Supongamos que tienes el siguiente diccionario
-diccionario = state.load_data
-
-# Nombre del archivo CSV al que quieres exportar el diccionario
-nombre_archivo = "mi_archivo.csv"
-
-# Usamos el módulo csv para escribir en el archivo
-with open(nombre_archivo, 'w') as f:
-    writer = csv.DictWriter(f, fieldnames=diccionario.keys())
-    writer.writeheader()
-    writer.writerows(zip(*diccionario.values()))
-"""
-"""# Definición de las columnas para el DataEditor
-columns: list[dict] = [
-    {
-        "title": "Columna 1",
-        "type": "str",
-    },
-    {
-        "title": "Columna 2",
-        "type": "int",
-    },
-    # Agregar más columnas según sea necesario
-]
-
-# Datos que se quieren mostrar en la tabla
-data: list[list[str]] = [
-    ["dato1", 1],
-    ["dato2", 2],
-    # Agregar más filas de datos según sea necesario
-]
-
-# Componente DataEditor para mostrar los datos en formato de tabla
-def your_data_table():
-    return rx.data_editor(columns=columns, data=data)"""
