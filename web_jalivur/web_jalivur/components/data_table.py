@@ -34,8 +34,8 @@ def tabla():
     state = TableState()
     state.load_data()
     print(state.load_data())
-    dict_values= state.load_data.values()
-    print(dict_values)
+    list_values=[list(dict_int.values()) for dict_int in state.load_data.values()]
+    print(list_values)
     columns = [
 
         {"title": "id", "type":"int"},
@@ -45,7 +45,7 @@ def tabla():
         {"title": "Contraseña", "type":"str"},
     ]
     return rx.data_table(
-        data=dict_values.values(),
+        data=list_values,
         columns=columns,
         pagination=True,
         search=True,
