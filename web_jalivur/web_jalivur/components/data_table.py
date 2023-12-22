@@ -45,7 +45,7 @@ def tabla():
         {"title": "Contraseña", "type":"str"},
     ]
     return rx.data_table(
-        data=dict_values,
+        data=dict_values.values(),
         columns=columns,
         pagination=True,
         search=True,
