@@ -1,23 +1,25 @@
 import reflex as rx
 from enum import Enum
-
+from .fonts import Fonts
+from .colors import Color, TextColor
+STILESHEETS =[
+    "https://unpkg.com/nes.css@latest/css/nes.min.css",
+    "https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap"
+    ]
 #Constanst
 MAX_WIDTH="500px"
 
 #Sizes 
-class Spacer(Enum):
+class Size(Enum):
     SMALL="0.5em"
     DEFAULT="1em"
     BIG="2em"
 
 #Styles
 BASE_STYLE = {
-    rx.Button:{
-        "width": "100%",
-        "height": "100%",
-        "display":"flex",
-        "padding": Spacer.SMALL.value
-    }
+    "font_family": Fonts.DEFAULT.value,
+    "color": TextColor.PRIMARY.value,
+    "background": Color.PRIMARY.value,
 }
 
 

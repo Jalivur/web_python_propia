@@ -39,7 +39,9 @@ class TableState(rx.State):
 def tabla():
     state = TableState()
     load_data=state.load_data()
+
     list_values=[list(dict_int.values()) for dict_int in load_data.values()]
+
     return rx.data_table(
         columns=TableState.columns,
         data=list_values,
@@ -48,3 +50,4 @@ def tabla():
         sort=False,
         resizable=True,
     )
+
