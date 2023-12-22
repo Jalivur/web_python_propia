@@ -14,6 +14,7 @@ from web_jalivur.components.nav_bar import navbar
 #from web_jalivur.views.links.links import links
 from web_jalivur.components.footer import footer
 import web_jalivur.styles.styles as styles
+import web_jalivur.styles.colors as colors
 from web_jalivur.components.forms import form
 from web_jalivur.components.data_table import tabla
 
@@ -68,14 +69,15 @@ def user_info(tokeninfo: dict) -> rx.Component:
         rx.avatar(
             name=tokeninfo["name"],
             src=tokeninfo["picture"],
-            size="lg",
+            size="md",
         ),
         rx.vstack(
-            rx.heading(tokeninfo["name"], size="md"),
-            rx.text(tokeninfo["email"]),
-            align_items="flex-start",
+            rx.heading(tokeninfo["name"], size="sm", text_align="justified"),
+            rx.text(tokeninfo["email"], font_size="1em"),
+            align_items="justified",
+            width="100%"
         ),
-        rx.button("Logout", on_click=State.logout),
+        rx.button("Logout", on_click=State.logout, text_color= colors.TextColor.SECONDARY.value, bg=colors.Color.ACCENT.value),
         padding="10px",
     )
 
@@ -110,9 +112,9 @@ def index() -> rx.Component:
 def Welcome() -> rx.Component:
     return rx.vstack(
         user_info(State.tokeninfo),
-        rx.text(State.Welcome_content),
+        rx.text(State.Welcome_content, font_size="3em", font_tipe="strong"),
         rx.link("Formulario Inserción", href="/Formulario"),
-        rx.link("Tabla", href="/Tabla"),
+        rx.link("Tabla", href="/Tabla", font_size=styles.Size.BIG.value),
         rx.link("Volver", href="/")
     )
 @rx.page(route="/Formulario")
@@ -123,13 +125,12 @@ def form_insert() -> rx.Component:
                 rx.vstack(
                 rx.link("Volver", href="/Welcome_page"),
                 rx.box(
-
-
                 rx.card(
                     rx.box(
                         form("Insercion de Contraseña"),
                     ),
                     align="center",
+                    background= styles.Color.SECONDARY.value
                 ),
                 footer()
                 ),
@@ -146,9 +147,14 @@ def data_table() -> rx.Component:
             width="95%",
         )
     )
+
 # Add state and page to the app.
 app = rx.App(
-    style= styles.BASE_STYLE
+
+    stylesheets= styles.STILESHEETS,
+    style= styles.BASE_STYLE    
 ) 
 app.add_page(index)
+app.add_page(data_table)
+app.add_page(Welcome)
 app.compile()
