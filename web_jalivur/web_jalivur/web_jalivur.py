@@ -16,7 +16,7 @@ from web_jalivur.components.footer import footer
 import web_jalivur.styles.styles as styles
 import web_jalivur.styles.colors as colors
 from web_jalivur.components.forms import form
-from web_jalivur.components.data_table import tabla
+from web_jalivur.components.data_table_dinamica import DataTableLiveState
 
 
 CLIENT_ID="926775887168-m5l5sk0umb5n2ft4991qle6q92mdvdu9.apps.googleusercontent.com"
@@ -114,7 +114,7 @@ def Welcome() -> rx.Component:
         user_info(State.tokeninfo),
         rx.text(State.Welcome_content, font_size="3em", font_tipe="strong"),
         rx.link("Formulario Inserción", href="/Formulario"),
-        rx.link("Tabla", href="/Tabla", font_size=styles.Size.BIG.value),
+        rx.link("Tabla", href="/Tabla",font_size=styles.Size.BIG.value),
         rx.link("Volver", href="/")
     )
 @rx.page(route="/Formulario")
@@ -122,8 +122,8 @@ def Welcome() -> rx.Component:
 def form_insert() -> rx.Component:
     return rx.box(
                 navbar(),
-                rx.vstack(
                 rx.link("Volver", href="/Welcome_page"),
+                rx.vstack(
                 rx.box(
                 rx.card(
                     rx.box(
@@ -141,12 +141,22 @@ def form_insert() -> rx.Component:
 @require_google_login
 def data_table() -> rx.Component:
     return rx.vstack(
-        rx.link("Volver", href="/Welcome_page"),
-        rx.box(
-            tabla(),
-            width="95%",
-        )
+    rx.link("Volver", href="/Welcome_page"),
+    rx.stack(
+        rx.cond(
+            ~DataTableLiveState.running,
+            rx.button("Start", on_click=DataTableLiveState.toggle_pause, color_scheme='green'),
+            rx.button("Pause", on_click=DataTableLiveState.toggle_pause, color_scheme='red'),
+        ),
+    ),
+    rx.center(
+     rx.data_table(
+        columns=DataTableLiveState.columns,
+        data=DataTableLiveState.table_data,
+        ),
+
     )
+)
 
 # Add state and page to the app.
 app = rx.App(
