@@ -4,7 +4,7 @@ from .fonts import Fonts
 from .colors import Color, TextColor
 STILESHEETS =[
     "https://unpkg.com/nes.css@latest/css/nes.min.css",
-    "https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap"
+    "https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap",
     ]
 #Constanst
 MAX_WIDTH="500px"
@@ -13,7 +13,10 @@ MAX_WIDTH="500px"
 class Size(Enum):
     SMALL="0.5em"
     DEFAULT="1em"
+    INTERMEDIATE= "1.5em"
     BIG="2em"
+    MOREBIG="2.5em"
+    VERYBIG="3em"
 
 #Styles
 BASE_STYLE = {
