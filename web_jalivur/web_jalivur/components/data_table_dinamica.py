@@ -36,13 +36,13 @@ class DataTableLiveState(rx.State):
    
                 cursor.execute("SELECT * FROM contrasenas")  # Customize your query as needed
                 records = cursor.fetchall()
-                print(type(records))
 
                 if records:
                     self.table_data = records
         cursor.close()
                 # Cierra la conexión 
         conn.close()
+
     def toggle_pause(self):
         self.running = not self.running
         if self.running:
