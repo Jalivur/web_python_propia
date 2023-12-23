@@ -70,7 +70,4 @@ def form(title:str):
             on_submit=FormState.handle_submit,
             reset_on_submit=True,
         ),
-            rx.divider(),
-            rx.heading("Resultado Ultima Inserción", size= "sm",font_family= Fonts.DEFAULT.value), 
-            rx.text(FormState.form_data.to_string()),
         )
