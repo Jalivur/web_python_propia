@@ -32,7 +32,7 @@ class FormState(rx.State):
 
 def form(title:str):
     return rx.vstack(
-        rx.text(title, as_="strong", font_size="2em"),
+        rx.heading(title, as_="strong", font_size=Size.INTERMEDIATE.value),
         rx.form(
             rx.vstack(
                 rx.input(
@@ -64,7 +64,8 @@ def form(title:str):
                     background = Color.ACCENT.value
                 ),
                 rx.button("Submit", type_="submit"),
-
+                height="100%",
+                width="90%",
             ),
 
             on_submit=FormState.handle_submit,
@@ -72,6 +73,6 @@ def form(title:str):
             #background = Color.SECONDARY.value
         ),
             rx.divider(),
-            rx.heading("Resultado Ultima Inserción", font_family= Fonts.DEFAULT.value), 
+            rx.heading("Resultado Ultima Inserción", size= "sm",font_family= Fonts.DEFAULT.value), 
             rx.text(FormState.form_data.to_string()),
         )
