@@ -25,7 +25,7 @@ class FormState(rx.State):
         Url_sitio = form_data.get("Url")
         Usuario = form_data.get("Usuario")
         Contraseña = form_data.get("Contraseña")
-        date= datetime.datetime.now()
+        date= datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
         sql= (f"INSERT INTO contrasenas (Sitio, Url_sitio, Usuario, Contraseña, Fecha) VALUES ('{Sitio}', '{Url_sitio}', '{Usuario}', '{Contraseña}','{date}')")
         cursor.execute(sql)
         conn.commit()
