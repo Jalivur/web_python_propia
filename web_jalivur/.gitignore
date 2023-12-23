@@ -1,6 +1,7 @@
 *.db
 *.py[cod]
+.env
+.vscode/
 .web
 __pycache__/
-.vscode/
-.env
+--encoding=utf-8
