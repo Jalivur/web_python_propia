@@ -2,6 +2,10 @@ import reflex as rx
 import psycopg2
 
 from rxconfig import config
+from web_jalivur.styles.styles import Size, Color
+from web_jalivur.styles.colors import Color, TextColor
+from web_jalivur.styles.fonts import Fonts
+
 db_url=config.db_url
 
 class FormState(rx.State):
@@ -35,21 +39,29 @@ def form(title:str):
                     placeholder="Sitio",
                     name="Sitio",
                     is_required = True,
+                    text_color= TextColor.PRIMARY.value,
+                    background = Color.ACCENT.value
                 ),
                 rx.input(
                     placeholder="Url Sitio",
                     name="Url",
                     is_required = True,
+                    text_color= TextColor.PRIMARY.value,
+                    background = Color.ACCENT.value
                 ),
                 rx.input(
                     placeholder="Usuario",
                     name="Usuario",
                     is_required = True,
+                    text_color= TextColor.PRIMARY.value,
+                    background = Color.ACCENT.value
                 ),
                 rx.input(
                     placeholder="Contraseña",
                     name="Contraseña",
                     is_required = True,
+                    text_color= TextColor.PRIMARY.value,
+                    background = Color.ACCENT.value
                 ),
                 rx.button("Submit", type_="submit"),
 
@@ -57,8 +69,9 @@ def form(title:str):
 
             on_submit=FormState.handle_submit,
             reset_on_submit=True,
+            #background = Color.SECONDARY.value
         ),
             rx.divider(),
-            rx.heading("Resultado Ultima Inserción"),
+            rx.heading("Resultado Ultima Inserción", font_family= Fonts.DEFAULT.value), 
             rx.text(FormState.form_data.to_string()),
         )
