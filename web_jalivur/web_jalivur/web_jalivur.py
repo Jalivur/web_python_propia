@@ -17,6 +17,9 @@ import web_jalivur.styles.styles as styles
 import web_jalivur.styles.colors as colors
 from web_jalivur.components.forms import form
 from web_jalivur.components.data_table_dinamica import DataTableLiveState
+import web_jalivur.styles.fonts as Fonts
+
+
 
 
 CLIENT_ID="926775887168-m5l5sk0umb5n2ft4991qle6q92mdvdu9.apps.googleusercontent.com"
@@ -70,16 +73,19 @@ def user_info(tokeninfo: dict) -> rx.Component:
             name=tokeninfo["name"],
             src=tokeninfo["picture"],
             size="md",
+            show_border= True,
+            border_color= colors.Color.SECONDARY.value
         ),
         rx.vstack(
-            rx.heading(tokeninfo["name"], size="sm", text_align="justified"),
-            rx.text(tokeninfo["email"], font_size="1em"),
+            rx.heading(tokeninfo["name"], size="xs", text_align="justified", font_family= Fonts.Fonts.DEFAULT.value),
+            rx.text(tokeninfo["email"], font_size="0.7em"),
             align_items="justified",
-            width="100%"
+            width="60%"
         ),
-        rx.button("Logout", on_click=State.logout, text_color= colors.TextColor.SECONDARY.value, bg=colors.Color.ACCENT.value),
+        rx.button("Logout", size="sm", on_click=State.logout, text_color= colors.TextColor.SECONDARY.value, bg=colors.Color.ACCENT.value),
         padding="10px",
     )
+
 
 
 def login() -> rx.Component:
@@ -104,7 +110,7 @@ def require_google_login(page) -> rx.Component:
 
 def index() -> rx.Component:
     return rx.vstack(
-        rx.heading("Bienvenido la Web de Jalivur", size="lg"),
+        rx.heading("Bienvenido a la Web de Jalivur",font_family= Fonts.Fonts.DEFAULT.value, size="lg"),
         rx.link("Welcome Page", href="/Welcome_page"),
     )
 @rx.page(route="/Welcome_page")
@@ -112,17 +118,18 @@ def index() -> rx.Component:
 def Welcome() -> rx.Component:
     return rx.vstack(
         user_info(State.tokeninfo),
-        rx.text(State.Welcome_content, font_size="3em", font_tipe="strong"),
-        rx.link("Formulario Inserción", href="/Formulario"),
-        rx.link("Tabla", href="/Tabla",font_size=styles.Size.BIG.value),
-        rx.link("Volver", href="/")
-    )
+        rx.text(State.Welcome_content, font_size=styles.Size.INTERMEDIATE.value, font_tipe="strong"),
+        rx.link("Formulario Inserción", href="/Formulario", font_size=styles.Size.INTERMEDIATE.value),
+        rx.link("Tabla", href="/Tabla",font_size=styles.Size.INTERMEDIATE.value),
+        rx.link("Volver", href="/"),
+        )
+
 @rx.page(route="/Formulario")
 @require_google_login
 def form_insert() -> rx.Component:
     return rx.box(
                 navbar(),
-                rx.link("Volver", href="/Welcome_page"),
+                rx.link("Volver", href="/Welcome_page", color=styles.TextColor.TERTIARY.value),
                 rx.vstack(
                 rx.box(
                 rx.card(
@@ -130,7 +137,7 @@ def form_insert() -> rx.Component:
                         form("Insercion de Contraseña"),
                     ),
                     align="center",
-                    background= styles.Color.SECONDARY.value
+                    background= styles.Color.SECONDARY.value,
                 ),
                 footer()
                 ),
@@ -141,7 +148,7 @@ def form_insert() -> rx.Component:
 @require_google_login
 def data_table() -> rx.Component:
     return rx.vstack(
-    rx.link("Volver", href="/Welcome_page"),
+    rx.link("Volver", href="/Welcome_page", color=styles.TextColor.TERTIARY.value),
     rx.stack(
         rx.cond(
             ~DataTableLiveState.running,
@@ -153,8 +160,8 @@ def data_table() -> rx.Component:
      rx.data_table(
         columns=DataTableLiveState.columns,
         data=DataTableLiveState.table_data,
-        ),
 
+        ),
     )
 )
 
