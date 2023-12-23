@@ -77,12 +77,12 @@ def user_info(tokeninfo: dict) -> rx.Component:
             border_color= colors.Color.SECONDARY.value
         ),
         rx.vstack(
-            rx.heading(tokeninfo["name"], size="xs", text_align="justified", font_family= Fonts.Fonts.DEFAULT.value),
-            rx.text(tokeninfo["email"], font_size="0.7em"),
+            rx.heading(tokeninfo["name"],class_name="nes-text is-primary", size="xs", text_align="justified", font_family= Fonts.Fonts.DEFAULT.value),
+            rx.text(tokeninfo["email"], font_size="0.7em",class_name="nes-text is-disabled"),
             align_items="justified",
             width="60%"
         ),
-        rx.button("Logout", size="sm", on_click=State.logout, text_color= colors.TextColor.SECONDARY.value, bg=colors.Color.ACCENT.value),
+        rx.button("Logout", size="sm",class_name="nes-btn is-warning", on_click=State.logout, text_color= colors.TextColor.SECONDARY.value, bg=colors.Color.ACCENT.value),
         padding="10px",
     )
 
@@ -110,18 +110,23 @@ def require_google_login(page) -> rx.Component:
 
 def index() -> rx.Component:
     return rx.vstack(
-        rx.heading("Bienvenido a la Web de Jalivur",font_family= Fonts.Fonts.DEFAULT.value, size="lg"),
+        rx.heading("Bienvenido a la Web de Jalivur", class_name="nes-text is-success", font_family= Fonts.Fonts.DEFAULT.value, size="lg"),
         rx.link("Welcome Page", href="/Welcome_page"),
+        class_name="nes-container is-rounded is-dark",
+        align_items="center",
+        width="100%",
+        margin="20%"
     )
+
 @rx.page(route="/Welcome_page")
 @require_google_login
 def Welcome() -> rx.Component:
     return rx.vstack(
         user_info(State.tokeninfo),
-        rx.text(State.Welcome_content, font_size=styles.Size.INTERMEDIATE.value, font_tipe="strong"),
-        rx.link("Formulario Inserción", href="/Formulario", font_size=styles.Size.INTERMEDIATE.value),
-        rx.link("Tabla", href="/Tabla",font_size=styles.Size.INTERMEDIATE.value),
-        rx.link("Volver", href="/"),
+        rx.text(State.Welcome_content, class_name="nes-text is-success", font_size=styles.Size.INTERMEDIATE.value, font_tipe="strong"),
+        rx.link("Formulario Inserción", class_name="nes-text is-primary", href="/Formulario", font_size=styles.Size.INTERMEDIATE.value),
+        rx.link("Tabla", href="/Tabla", class_name="nes-text is-primary", font_size=styles.Size.INTERMEDIATE.value),
+        rx.link("Volver", href="/", class_name="nes-text is-disabled"),
         )
 
 @rx.page(route="/Formulario")
@@ -135,9 +140,10 @@ def form_insert() -> rx.Component:
                 rx.card(
                     rx.box(
                         form("Insercion de Contraseña"),
+                        class_name="nes-table is-bordered is-darck",
                     ),
                     align="center",
-                    background= styles.Color.SECONDARY.value,
+                    backgroud_color=styles.Color.SECONDARY.value
                 ),
                 footer()
                 ),
@@ -152,8 +158,8 @@ def data_table() -> rx.Component:
     rx.stack(
         rx.cond(
             ~DataTableLiveState.running,
-            rx.button("Start", on_click=DataTableLiveState.toggle_pause, color_scheme='green'),
-            rx.button("Pause", on_click=DataTableLiveState.toggle_pause, color_scheme='red'),
+            rx.button("Start", on_click=DataTableLiveState.toggle_pause, class_name="nes-btn is-success"),
+            rx.button("Pause", on_click=DataTableLiveState.toggle_pause, class_name="nes-btn is-error"),
         ),
     ),
     rx.center(
@@ -162,6 +168,7 @@ def data_table() -> rx.Component:
         data=DataTableLiveState.table_data,
 
         ),
+        widht="98%"
     )
 )
 
