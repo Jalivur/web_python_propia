@@ -24,7 +24,7 @@ class DataTableLiveState(rx.State):
     async def live_stream(self):
         conn = psycopg2.connect(db_url)
         cursor= conn.cursor()
-        while True:
+        while self.running:
             await asyncio.sleep(1 / self.rate)  # Define la tasa de refresco
             if not self.running:
                 break
