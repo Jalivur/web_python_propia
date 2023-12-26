@@ -16,9 +16,9 @@ from web_jalivur.components.footer import footer
 import web_jalivur.styles.styles as styles
 import web_jalivur.styles.colors as colors
 from web_jalivur.components.forms import form
-from web_jalivur.components.data_table_dinamica import DataTableLiveState
+#from web_jalivur.components.data_table_dinamica import DataTableLiveState
 import web_jalivur.styles.fonts as Fonts
-
+from web_jalivur.components.data_editor_own import editorstate
 
 
 
@@ -125,7 +125,8 @@ def Welcome() -> rx.Component:
         user_info(State.tokeninfo),
         rx.text(State.Welcome_content, class_name="nes-text is-success", font_size=styles.Size.INTERMEDIATE.value, font_tipe="strong"),
         rx.link("Formulario Inserción", class_name="nes-text is-primary", href="/Formulario", font_size=styles.Size.INTERMEDIATE.value),
-        rx.link("Tabla", href="/Tabla", class_name="nes-text is-primary", font_size=styles.Size.INTERMEDIATE.value),
+        #rx.link("Tabla", href="/Tabla", class_name="nes-text is-primary", font_size=styles.Size.INTERMEDIATE.value),
+        rx.link("Tabla Editable", href="/tabla_nueva"),
         rx.link("Volver", href="/", class_name="nes-text is-disabled"),
         )
 
@@ -150,6 +151,37 @@ def form_insert() -> rx.Component:
             ),
             width="100%",
         )
+
+
+@rx.page(route="/tabla_nueva")
+@require_google_login
+def tabla_editable() -> rx.Component:
+    datos=editorstate()
+    datos.load_data()
+    return rx.center(
+        rx.vstack(
+        rx.data_editor(
+            columns=editorstate.columns,
+            data=editorstate.data,
+            
+
+        ),
+    ),
+        width="100%",
+
+    )
+# Add state and page to the app.
+app = rx.App(
+
+    stylesheets= styles.STILESHEETS,
+    style= styles.BASE_STYLE    
+) 
+app.add_page(index)
+app.add_page(tabla_editable)
+app.add_page(Welcome)
+app.compile()
+
+"""
 @rx.page(route="/Tabla")
 @require_google_login
 def data_table() -> rx.Component:
@@ -171,14 +203,4 @@ def data_table() -> rx.Component:
         widht="98%"
     )
 )
-
-# Add state and page to the app.
-app = rx.App(
-
-    stylesheets= styles.STILESHEETS,
-    style= styles.BASE_STYLE    
-) 
-app.add_page(index)
-app.add_page(data_table)
-app.add_page(Welcome)
-app.compile()
+"""
