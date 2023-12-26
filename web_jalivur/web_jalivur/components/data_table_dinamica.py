@@ -18,6 +18,7 @@ class DataTableLiveState(rx.State):
         "Url Sitio",
         "Usuario",
         "Contraseña",
+        "Fecha",
         ]        
 
     @rx.background
