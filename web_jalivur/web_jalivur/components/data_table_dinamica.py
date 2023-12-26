@@ -34,7 +34,6 @@ class DataTableLiveState(rx.State):
                     self.table_data.pop(0)
                 # Aquí realizarías la consulta a PostgreSQL para obtener los datos
                 # Establece una conexión con la base de datos
-   
                 cursor.execute("SELECT * FROM contrasenas")  # Customize your query as needed
                 records = cursor.fetchall()
 
@@ -43,6 +42,7 @@ class DataTableLiveState(rx.State):
         cursor.close()
                 # Cierra la conexión 
         conn.close()
+        self.running = False
 
     def toggle_pause(self):
         self.running = not self.running
