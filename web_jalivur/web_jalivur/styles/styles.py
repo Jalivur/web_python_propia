@@ -2,6 +2,7 @@ import reflex as rx
 from enum import Enum
 from .fonts import Fonts
 from .colors import Color, TextColor
+
 STILESHEETS =[
     "https://unpkg.com/nes.css@latest/css/nes.min.css",
     "https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap",
