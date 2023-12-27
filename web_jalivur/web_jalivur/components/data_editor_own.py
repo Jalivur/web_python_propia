@@ -3,6 +3,7 @@ import typing as tp
 import psycopg2
 import asyncio
 from rxconfig import config
+import time
 db_url=config.db_url
 class editorstate(rx.State):
     running: bool = False
@@ -12,32 +13,30 @@ class editorstate(rx.State):
             "title": "Id",
             "type": "int",
             "width":50,
-
-
         },
         {
             "title": "Sitio",
             "type": "str",
             "width":100,
-
         },
         {
             "title": "Url Sitio",
             "type": "str",
-            "width":150,
-
         },
         {
             "title": "Usuario",
             "type": "str",
-            "width":200,
-
+            "width":180,
         },
         {
             "title": "Contraseña",
             "type": "str",
-            "width":800,
-
+            "width":400,
+        },
+        {
+            "title": "Fecha",
+            "type": "str",
+            "width":150,
         },
     ]
     data: list[list] = [
@@ -60,7 +59,7 @@ class editorstate(rx.State):
                     self.data.pop(0)
                 # Aquí realizarías la consulta a PostgreSQL para obtener los datos
                 # Establece una conexión con la base de datos
-   
+
                 cursor.execute("SELECT * FROM contrasenas")  # Customize your query as needed
                 records = cursor.fetchall()
                 recordsl=[]
@@ -68,7 +67,7 @@ class editorstate(rx.State):
                     rowl=list (row)
                     recordsl.append(rowl)
                 if records:
-                    self.data=recordsl
+                    self.data = recordsl
 
 
         cursor.close()
