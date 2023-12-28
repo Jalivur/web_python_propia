@@ -16,7 +16,7 @@ class FormState(rx.State):
         conn = psycopg2.connect(db_url)
 
         cursor = conn.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS contrasenas (id SERIAL PRIMARY KEY, Sitio TEXT, Url_sitio TEXT, Usuario TEXT, Contraseña TEXT, Fecha TEXT)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS contrasenas (id SERIAL PRIMARY KEY, Sitio TEXT, Url_sitio TEXT, Usuario TEXT, Contraseña TEXT, Lugar_Has TEXT, Fecha TEXT)")
         conn.commit()
         cursor.close()
 
@@ -25,8 +25,9 @@ class FormState(rx.State):
         Url_sitio = form_data.get("Url")
         Usuario = form_data.get("Usuario")
         Contraseña = form_data.get("Contraseña")
+        lugar_has = form_data.get("lugar")
         date= datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-        sql= (f"INSERT INTO contrasenas (Sitio, Url_sitio, Usuario, Contraseña, Fecha) VALUES ('{Sitio}', '{Url_sitio}', '{Usuario}', '{Contraseña}','{date}')")
+        sql= (f"INSERT INTO contrasenas (Sitio, Url_sitio, Usuario, Contraseña, Lugar_Has, Fecha) VALUES ('{Sitio}', '{Url_sitio}', '{Usuario}', '{Contraseña}','{lugar_has}','{date}')")
         cursor.execute(sql)
         conn.commit()
         cursor.close()
@@ -57,6 +58,13 @@ def form(title:str):
                 rx.input(
                     placeholder="Contraseña",
                     name="Contraseña",
+                    is_required = True,
+                    class_name="nes-input",
+
+                ),
+                rx.input(
+                    placeholder="Lugar Has",
+                    name="lugar",
                     is_required = True,
                     class_name="nes-input",
 
