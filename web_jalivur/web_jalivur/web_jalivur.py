@@ -168,6 +168,7 @@ def form_insert() -> rx.Component:
 @require_google_login
 def gen_encrypt() -> rx.Component:
     return  rx.vstack(
+                rx.link("Volver", href="/Welcome_page", color=styles.TextColor.TERTIARY.value),
                 rx.text("Lonigtud contraseña a geneara"),
                 rx.number_input(
                     on_change=NumberInputState.set_number,
@@ -177,7 +178,6 @@ def gen_encrypt() -> rx.Component:
                 rx.button("Generar", on_click=NumberInputState.generar_contrasena, class_name="nes-btn is-success"),
                 rx.text("Contraseña generada"),
                 rx.text_area(value=NumberInputState.contrasena, width="auto"),
-                rx.link("Volver", href="/Welcome_page", color=styles.TextColor.TERTIARY.value),
                 rx.text("Mensage a encriptar"),
                 rx.input(
                     value=MsgInputState.msg,
