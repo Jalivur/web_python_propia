@@ -34,6 +34,11 @@ class editorstate(rx.State):
             "width":400,
         },
         {
+            "title": "Lugar Has",
+            "type": "str",
+            "width":50,
+        },
+        {
             "title": "Fecha",
             "type": "str",
             "width":150,
