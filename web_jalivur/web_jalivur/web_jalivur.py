@@ -20,6 +20,9 @@ from web_jalivur.components.forms import form
 import web_jalivur.styles.fonts as Fonts
 from web_jalivur.components.data_editor_own import editorstate
 import web_jalivur.styles.themes as theme
+from web_jalivur.components.passgen import NumberInputState
+from web_jalivur.components.encrypt_pass import MsgInputState
+
 
 
 
@@ -134,6 +137,7 @@ def Welcome() -> rx.Component:
         rx.link("Formulario Inserción", class_name="nes-text is-primary", href="/Formulario", font_size=styles.Size.INTERMEDIATE.value),
         #rx.link("Tabla", href="/Tabla", class_name="nes-text is-primary", font_size=styles.Size.INTERMEDIATE.value),
         rx.link("Tabla Editable", href="/tabla_nueva"),
+        rx.link("Generado y Encryptador", href="/encrypt"),
         rx.link("Volver", href="/", class_name="nes-text is-disabled"),
         )
 
@@ -153,11 +157,46 @@ def form_insert() -> rx.Component:
                     align="center",
                     backgroud_color=styles.Color.SECONDARY.value
                 ),
-                footer()
+                
+                footer(),
                 ),
             ),
             width="100%",
         )
+
+@rx.page(route="/encrypt")
+@require_google_login
+def gen_encrypt() -> rx.Component:
+    return  rx.vstack(
+                rx.text("Lonigtud contraseña a geneara"),
+                rx.number_input(
+                    on_change=NumberInputState.set_number,
+                    default_value=6,
+                    min_=6,
+                    ),
+                rx.button("Generar", on_click=NumberInputState.generar_contrasena, class_name="nes-btn is-success"),
+                rx.text("Contraseña generada"),
+                rx.text_area(value=NumberInputState.contrasena, width="auto"),
+                rx.link("Volver", href="/Welcome_page", color=styles.TextColor.TERTIARY.value),
+                rx.text("Mensage a encriptar"),
+                rx.input(
+                    value=MsgInputState.msg,
+                    on_change=MsgInputState.set_msg,
+                    width="auto"
+                ),
+                rx.text("Clave"),
+                rx.input(
+                    value=MsgInputState.clave,
+                    on_change=MsgInputState.set_clave,
+                    width="auto"
+                ),
+                rx.text("Mensage"),
+                rx.text_area(name="Mensage",value=MsgInputState.msghas, width="auto"),
+                rx.button("Encriptar",on_click=MsgInputState.encriptar(),class_name="nes-btn is-success"),
+                rx.button("Desencriptar",on_click=MsgInputState.desencriptar(),class_name="nes-btn is-error"),
+                rx.button("Limpiar", on_click=MsgInputState.limpiar(), class_name="nes-btn is-warning")
+                )
+
 
 
 @rx.page(route="/tabla_nueva")
