@@ -34,47 +34,39 @@ class FormState(rx.State):
 
 def form(title:str):
     return rx.vstack(
-        rx.text(title, as_="strong", font_size=Size.INTERMEDIATE.value),
+        rx.box(rx.text(title, as_="strong", font_size=Size.INTERMEDIATE.value, text_color=TextColor.ACCENT.value), class_name="nes-balloon from-right is-dark"),
         rx.form(
             rx.vstack(
                 rx.input(
                     placeholder="Sitio",
                     name="Sitio",
                     is_required = True,
-                    class_name="nes-input",
                 ),
                 rx.input(
                     placeholder="Url Sitio",
                     name="Url",
                     is_required = True,
-                    class_name="nes-input",
                 ),
                 rx.input(
                     placeholder="Usuario",
                     name="Usuario",
                     is_required = True,
-                    class_name="nes-input",
                 ),
                 rx.input(
                     placeholder="Contraseña",
                     name="Contraseña",
                     is_required = True,
-                    class_name="nes-input",
-
                 ),
                 rx.input(
                     placeholder="Lugar Has",
                     name="lugar",
                     is_required = True,
-                    class_name="nes-input",
-
                 ),
                 rx.button("Submit", type_="submit", class_name="nes-btn is-success"),
                 height="100%",
                 width="90%",
                 class_name="nes-table is-bordered is-dark"
             ),
-
             on_submit=FormState.handle_submit,
             reset_on_submit=True,
         ),
