@@ -20,4 +20,6 @@ class NumberInputState(rx.State):
             minuscula = secrets.choice(string.ascii_lowercase)
             numero = secrets.choice(string.digits)
             self.contrasena = mayuscula + minuscula + contrasena + numero
+    def clear(self):
+        self.contrasena=""
 
