@@ -2,27 +2,31 @@ import reflex as rx
 from cryptography.fernet import Fernet
 
 class MsgInputState(rx.State):
-    msg: str
-    clave:str
-    msghas:str
+    msg_in: str
+    msg_out:str
+    clave_in:str
+    clave_out:str
+    msghas_in:str
+    msghas_out:str
 
 
 
     def generar_clave(self):
         clave=Fernet.generate_key()
-        self.clave=clave.decode()
-        print(self.clave)
+        self.clave_out=clave.decode()
 
     def encriptar(self):
         self.generar_clave()
-        cipher_suite = Fernet(self.clave.encode())
-        self.msghas=cipher_suite.encrypt(self.msg.encode()).decode()
-        print(self.msghas)
+        cipher_suite = Fernet(self.clave_out.encode())
+        self.msghas_out=cipher_suite.encrypt(self.msg_in.encode()).decode()
 
     def desencriptar(self):
-        cipher_suite = Fernet(self.clave.encode())
-        self.msg=cipher_suite.decrypt(self.msghas.encode()).decode()
+        cipher_suite = Fernet(self.clave_in.encode())
+        self.msg_out=cipher_suite.decrypt(self.msghas_in.encode()).decode()
     def limpiar(self):
-        self.msg=""
-        self.clave=""
-        self.msghas=""
+        self.msg_in=""
+        self.msg_out=""
+        self.clave_in=""
+        self.clave_out=""
+        self.msghas_in=""
+        self.msghas_out=""
