@@ -90,7 +90,7 @@ def Welcome() -> rx.Component:
 @rx.page(route="/Formulario")
 @login.require_google_login
 def form_insert() -> rx.Component:
-    return rx.box(
+    return rx.vstack(
                     navbar(),
                     rx.vstack(
                         rx.vstack(
@@ -103,7 +103,7 @@ def form_insert() -> rx.Component:
                             ),
                         ),
                     ),
-                width="100%",
+
             )
 
 @rx.page(route="/encrypt")
@@ -137,7 +137,7 @@ def gen_encrypt() -> rx.Component:
                             on_click=NumberInputState.clear(), 
                             class_name="nes-btn is-warning",
                             ),
-                    rx.hstack(
+                    rx.responsive_grid(
                         rx.vstack(
                             rx.text("Mensage a encriptar"),
                             rx.text_area(
@@ -186,6 +186,7 @@ def gen_encrypt() -> rx.Component:
                                     class_name="nes-btn is-error",
                                     ),
                         class_name="nes-container is-rounded is-dark",
+                        auto_rows="auto",
                         ),
                     ),
                     rx.button(
@@ -217,7 +218,7 @@ def tabla_editable() -> rx.Component:
                                             ),
                             ),
                     ),
-                    rx.center(
+                    rx.box(
                         rx.data_editor(
                             columns=editorstate.columns,
                             data=editorstate.data,
@@ -231,19 +232,17 @@ def tabla_editable() -> rx.Component:
                             theme=theme.futuristic_dark_theme,
                             
                         ),
-                        overflow_x="auto",
+                        max_width="90%",
                         position="relative",
                         padding="2%",
                         #left="",
                     ),
-                width="100%",
-                overflow="auto"
+
             )
 # Add state and page to the app.
 app = rx.App(
-
     stylesheets= styles.STILESHEETS,
-    style= styles.BASE_STYLE    
+    style= styles.BASE_STYLE,
 ) 
 app.add_page(index)
 app.add_page(Welcome)
