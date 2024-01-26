@@ -34,6 +34,7 @@ def index() -> rx.Component:
                         class_name="nes-text is-success", 
                         font_family= Font.Font.DEFAULT.value, 
                         size="lg",
+                        text_align="center",
                         ),
                         #Navegacion hasta pagina de Bienvenida
                     rx.link(
@@ -55,36 +56,58 @@ def Welcome() -> rx.Component:
                             #Contenido bienvenida login
                             login.State.Welcome_content, 
                             class_name="nes-text is-success", 
-                            font_size=styles.Size.MEDIUM.value, 
+                            font_size=styles.Size.LARGE.value, 
                             font_tipe="strong",
+                            text_align="center"
                             ),
+                    rx.vstack(
                     rx.link(
                             #Enlace a pagina formulario insercion datos
-                            "Formulario Inserción", 
+                            "---Formulario Inserción---", 
                             class_name="nes-text is-primary", 
                             href="/Formulario", 
-                            font_size=styles.Size.MEDIUM.value,
+                            font_size=styles.Size.DEFAULT.value,
+                            padding="50px",
+                            text_align="center",
+                            width="90vw",
+                            height="50px"
                             ),
                     rx.link(
                             #Enlace a pagina Tabla de datos de db remoto
-                            "Tabla", 
+                            "---Tabla---", 
                             href="/tabla", 
                             class_name="nes-text is-primary",
+                            font_size=styles.Size.DEFAULT.value,
+                            padding="50px",
+                            text_align="center",
+                            width="90vw",
+                            height="50px"
                             ),
                     rx.link(
                             #Enlace a pagina de generacion encriptado y desencriptado de contraseñas
-                            "Generado y Encryptador", 
+                            "---Generado y Encryptador---", 
                             href="/encrypt", 
                             class_name="nes-text is-primary",
+                            font_size=styles.Size.DEFAULT.value,
+                            padding="50px",
+                            text_align="center",
+                            width="90vw",
+                            height="50px"
                             ),
                     rx.link(
                             #Volver a pagina de inicio
-                            "Volver", 
+                            "---Volver---", 
                             href="/", 
-                            class_name="nes-text is-disabled",
+                            class_name="nes-text is-primary",
+                            font_size=styles.Size.DEFAULT.value,
+                            padding="50px",
+                            text_align="center",
+                            width="90vw",
+                            height="50px"
                             ),
-                    #modulo propio pie de pagina
+                    ),
                     footer(),
+                    #modulo propio pie de pagina
             )
 #Pagina Formulario de insercion de datos
 @rx.page(route="/Formulario")
@@ -188,7 +211,7 @@ def gen_encrypt() -> rx.Component:
                                             ),
                                     class_name="nes-container is-rounded is-dark",
                                     ),
-                                    max_width="100vw",
+                                    max_width="95vw",
                             ),
                             ),
                     rx.mobile_and_tablet(
@@ -242,7 +265,7 @@ def gen_encrypt() -> rx.Component:
                                             ),
                                 class_name="nes-container is-rounded is-dark",
                                 ),
-                                max_width="100vw",
+                                max_width="95vw",
                             ),
                         
                         ),
