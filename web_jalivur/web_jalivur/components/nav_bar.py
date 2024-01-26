@@ -103,6 +103,7 @@ def navbar() -> rx.Component:
                             bg="#ffab53",
                             ),
                             bg="#ffab53",
+                            width="95vw"
                         ),
                     ),
             ),
@@ -114,5 +115,5 @@ def navbar() -> rx.Component:
         z_index ="999",
         should_wrap_children=True,
         auto_flow="row", 
-        max_width="100vw",
+        max_width="95vw",
     )
