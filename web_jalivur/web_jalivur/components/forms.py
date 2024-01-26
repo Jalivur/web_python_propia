@@ -4,7 +4,7 @@ import datetime
 from rxconfig import config
 from web_jalivur.styles.styles import Size, Color
 from web_jalivur.styles.colors import Color, TextColor
-from web_jalivur.styles.fonts import Fonts
+from web_jalivur.styles.fonts import Font
 
 db_url=config.db_url
 
@@ -34,7 +34,7 @@ class FormState(rx.State):
 
 def form(title:str):
     return rx.vstack(
-        rx.box(rx.text(title, as_="strong", font_size=Size.INTERMEDIATE.value, text_color=TextColor.ACCENT.value), class_name="nes-balloon from-right is-dark"),
+        rx.box(rx.text(title, as_="strong", font_size=Size.LARGE.value, text_color=TextColor.ACCENT.value), class_name="nes-balloon from-right is-dark"),
         rx.form(
             rx.vstack(
                 rx.input(

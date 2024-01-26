@@ -63,7 +63,7 @@ def user_info(tokeninfo: dict) -> rx.Component:
                         tokeninfo["name"],
                         class_name="nes-text is-primary", 
                         size="xs", text_align="justified", 
-                        font_family= Fonts.Fonts.DEFAULT.value,
+                        font_family= Fonts.Font.DEFAULT.value,
                         ),
                     rx.text(
                         tokeninfo["email"], 
