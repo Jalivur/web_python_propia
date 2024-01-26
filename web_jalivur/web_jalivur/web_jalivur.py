@@ -290,7 +290,7 @@ def tabla_editable() -> rx.Component:
                             theme=theme.futuristic_dark_theme,
                             
                         ),
-                        max_width="90%",
+                        max_width="90vw",
                         position="relative",
                         padding="2%",
                         #left="",
