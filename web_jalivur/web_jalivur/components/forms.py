@@ -34,7 +34,7 @@ class FormState(rx.State):
 
 def form(title:str):
     return rx.vstack(
-        rx.box(rx.text(title, as_="strong", font_size=Size.MEDIUM.value, text_color=TextColor.ACCENT.value), class_name="nes-balloon from-right is-dark"),
+        rx.box(rx.text(title, as_="strong", font_size=Size.LARGE.value, text_color=TextColor.ACCENT.value), class_name="nes-balloon from-right is-dark"),
         rx.form(
             rx.vstack(
                 rx.input(
