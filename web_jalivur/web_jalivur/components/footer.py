@@ -13,7 +13,7 @@ def footer() -> rx.Component:
                 href="https://moure.dev",
                 is_external= True,
                 ),
-        font_size=styles.Size.SMALL.value,
+        font_size=styles.Size.MEDIUM.value,
         font_famayli=fonts.Font.DEFAULT.value,
         color = colors.TextColor.PRIMARY.value
     )

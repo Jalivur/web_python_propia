@@ -24,7 +24,7 @@ def tabla_page():
                         rx.data_editor(
                             columns=editorstate.columns,
                             data=editorstate.data,
-                            freeze_columns=2,
+                            freeze_columns=1,
                             smooth_scroll_x=True,
                             #smooth_scroll_y=True,
                             #overflow="auto",

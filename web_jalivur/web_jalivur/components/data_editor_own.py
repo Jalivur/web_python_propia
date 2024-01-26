@@ -83,20 +83,5 @@ class editorstate(rx.State):
         self.running = not self.running
         if self.running:
             return editorstate.live_stream
-"""
-    def load_data(self):
-        conn = psycopg2.connect(db_url)
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM contrasenas")
-        rows = cursor.fetchall()
-        print(rows)
-        for row in rows:
-            rowl=list (row)
-            self.data.append(rowl)
-        cursor.close()
-        conn.close()
-"""
-
-
 
 
