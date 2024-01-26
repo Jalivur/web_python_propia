@@ -9,7 +9,7 @@ from web_jalivur.components.footer import footer
 import web_jalivur.styles.styles as styles
 import web_jalivur.styles.colors as colors
 from web_jalivur.components.forms import form
-import web_jalivur.styles.fonts as Fonts
+import web_jalivur.styles.fonts as Font
 from web_jalivur.components.data_editor_own import editorstate
 import web_jalivur.styles.themes as theme
 from web_jalivur.components.passgen import NumberInputState
@@ -32,7 +32,7 @@ def index() -> rx.Component:
                     rx.heading(
                         "Bienvenido a la Web de Jalivur", 
                         class_name="nes-text is-success", 
-                        font_family= Fonts.Fonts.DEFAULT.value, 
+                        font_family= Font.Font.DEFAULT.value, 
                         size="lg",
                         ),
                         #Navegacion hasta pagina de Bienvenida
@@ -55,7 +55,7 @@ def Welcome() -> rx.Component:
                             #Contenido bienvenida login
                             login.State.Welcome_content, 
                             class_name="nes-text is-success", 
-                            font_size=styles.Size.INTERMEDIATE.value, 
+                            font_size=styles.Size.MEDIUM.value, 
                             font_tipe="strong",
                             ),
                     rx.link(
@@ -63,7 +63,7 @@ def Welcome() -> rx.Component:
                             "Formulario Inserción", 
                             class_name="nes-text is-primary", 
                             href="/Formulario", 
-                            font_size=styles.Size.INTERMEDIATE.value,
+                            font_size=styles.Size.MEDIUM.value,
                             ),
                     rx.link(
                             #Enlace a pagina Tabla de datos de db remoto
@@ -137,63 +137,121 @@ def gen_encrypt() -> rx.Component:
                             on_click=NumberInputState.clear(), 
                             class_name="nes-btn is-warning",
                             ),
-                    rx.responsive_grid(
+                    rx.desktop_only(
+                            rx.hstack(
+                                    rx.vstack(
+                                    rx.text("Mensage a encriptar"),
+                                    rx.text_area(
+                                            value=MsgInputState.msg_in,
+                                            on_change=MsgInputState.set_msg_in,
+                                            width="auto",
+                                    ),
+                                    rx.text("Clave salida"),
+                                    rx.text_area(
+                                            value=MsgInputState.clave_out, 
+                                            width="auto",
+                                            ),
+                                    rx.text("Mensage encriptado"),
+                                    rx.text_area(
+                                            value=MsgInputState.msghas_out, 
+                                            width="auto",
+                                            ),
+                                    rx.button(
+                                            "Encriptar",
+                                            on_click=MsgInputState.encriptar(),
+                                            class_name="nes-btn is-success",
+                                            ),
+                                    class_name="nes-container is-rounded is-dark",
+                                    ),
+                                    rx.vstack(
+                                    rx.text("Mensage a desencriptar"),
+                                    rx.text_area(
+                                            value=MsgInputState.msghas_in,
+                                            on_change=MsgInputState.set_msghas_in,
+                                            width="auto",
+                                    ),
+                                    rx.text("Clave entrada"),
+                                    rx.text_area(
+                                            value=MsgInputState.clave_in,
+                                            on_change=MsgInputState.set_clave_in,
+                                            width="auto"
+                                    ),
+                                    rx.text("Mensage desencriptado"),
+                                    rx.text_area(
+                                            value=MsgInputState.msg_out, 
+                                            width="auto",
+                                            ),
+                                    rx.button(
+                                            "Desencriptar",
+                                            on_click=MsgInputState.desencriptar(),
+                                            class_name="nes-btn is-error",
+                                            ),
+                                    class_name="nes-container is-rounded is-dark",
+                                    ),
+                                    max_width="100vw",
+                            ),
+                            ),
+                    rx.mobile_and_tablet(
                         rx.vstack(
-                            rx.text("Mensage a encriptar"),
-                            rx.text_area(
-                                    value=MsgInputState.msg_in,
-                                    on_change=MsgInputState.set_msg_in,
-                                    width="auto",
+                                rx.vstack(
+                                    rx.text("Mensage a encriptar"),
+                                    rx.text_area(
+                                            value=MsgInputState.msg_in,
+                                            on_change=MsgInputState.set_msg_in,
+                                            width="auto",
+                                    ),
+                                    rx.text("Clave salida"),
+                                    rx.text_area(
+                                            value=MsgInputState.clave_out, 
+                                            width="auto",
+                                            ),
+                                    rx.text("Mensage encriptado"),
+                                    rx.text_area(
+                                            value=MsgInputState.msghas_out, 
+                                            width="auto",
+                                            ),
+                                    rx.button(
+                                            "Encriptar",
+                                            on_click=MsgInputState.encriptar(),
+                                            class_name="nes-btn is-success",
+                                            ),
+                                class_name="nes-container is-rounded is-dark",
+                                ),
+                                rx.vstack(
+                                    rx.text("Mensage a desencriptar"),
+                                    rx.text_area(
+                                            value=MsgInputState.msghas_in,
+                                            on_change=MsgInputState.set_msghas_in,
+                                            width="auto",
+                                    ),
+                                    rx.text("Clave entrada"),
+                                    rx.text_area(
+                                            value=MsgInputState.clave_in,
+                                            on_change=MsgInputState.set_clave_in,
+                                            width="auto"
+                                    ),
+                                    rx.text("Mensage desencriptado"),
+                                    rx.text_area(
+                                            value=MsgInputState.msg_out, 
+                                            width="auto",
+                                            ),
+                                    rx.button(
+                                            "Desencriptar",
+                                            on_click=MsgInputState.desencriptar(),
+                                            class_name="nes-btn is-error",
+                                            ),
+                                class_name="nes-container is-rounded is-dark",
+                                ),
+                                max_width="100vw",
                             ),
-                            rx.text("Clave salida"),
-                            rx.text_area(
-                                    value=MsgInputState.clave_out, 
-                                    width="auto",
-                                    ),
-                            rx.text("Mensage encriptado"),
-                            rx.text_area(
-                                    value=MsgInputState.msghas_out, 
-                                    width="auto",
-                                    ),
-                            rx.button(
-                                    "Encriptar",
-                                    on_click=MsgInputState.encriptar(),
-                                    class_name="nes-btn is-success",
-                                    ),
-                        class_name="nes-container is-rounded is-dark",
+                        
                         ),
-                        rx.vstack(
-                            rx.text("Mensage a desencriptar"),
-                            rx.text_area(
-                                    value=MsgInputState.msghas_in,
-                                    on_change=MsgInputState.set_msghas_in,
-                                    width="auto",
-                            ),
-                            rx.text("Clave entrada"),
-                            rx.text_area(
-                                    value=MsgInputState.clave_in,
-                                    on_change=MsgInputState.set_clave_in,
-                                    width="auto"
-                            ),
-                            rx.text("Mensage desencriptado"),
-                            rx.text_area(
-                                    value=MsgInputState.msg_out, 
-                                    width="auto",
-                                    ),
-                            rx.button(
-                                    "Desencriptar",
-                                    on_click=MsgInputState.desencriptar(),
-                                    class_name="nes-btn is-error",
-                                    ),
-                        class_name="nes-container is-rounded is-dark",
-                        auto_rows="auto",
-                        ),
-                    ),
                     rx.button(
                             "Limpiar", 
                             on_click=MsgInputState.limpiar(), 
                             class_name="nes-btn is-warning",
                             ),
+                                    max_height="100vw", 
             )
 
 
@@ -246,7 +304,7 @@ app = rx.App(
 ) 
 app.add_page(index)
 app.add_page(Welcome)
-app.compile()
+#app.compile()
 
 """
 @rx.page(route="/Tabla")

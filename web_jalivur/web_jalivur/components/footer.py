@@ -1,5 +1,6 @@
 import reflex as rx
 import datetime
+from web_jalivur.styles import fonts,colors,styles
 def footer() -> rx.Component:
     return  rx.vstack(
         rx.link(
@@ -11,5 +12,7 @@ def footer() -> rx.Component:
         rx.link("mouredev",
                 href="https://moure.dev",
                 is_external= True,
-                )
+                ),
+        font_famayli=fonts.Font.DEFAULT.value,
+        color = colors.TextColor.PRIMARY.value
     )
